@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice - Order #{{ order.id }}</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .invoice-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 24px 32px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 16px;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .brand span {
+            color: #2563eb;
+        }
+
+        .invoice-meta {
+            text-align: right;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #374151;
+        }
+
+        .section {
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .section p {
+            margin: 0;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .items-table th,
+        .items-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        .items-table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #6b7280;
+        }
+
+        .items-table td:last-child,
+        .items-table th:last-child {
+            text-align: right;
+        }
+
+        .totals {
+            margin-top: 16px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .totals-table {
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 220px;
+        }
+
+        .totals-table td {
+            padding: 6px 0 6px 16px;
+        }
+
+        .totals-table tr:last-child td {
+            font-weight: 600;
+            font-size: 14px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 10px;
+        }
+
+        .totals-table td:first-child {
+            text-align: left;
+            color: #4b5563;
+        }
+
+        .totals-table td:last-child {
+            text-align: right;
+            color: #111827;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-processing {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .status-shipped {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .status-delivered {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .footer-note {
+            margin-top: 32px;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-container">
+    <div class="invoice-header">
+        <div>
+            <div class="brand">Shopvely<span>.in</span></div>
+            <div style="font-size:12px; color:#6b7280; margin-top:4px;">
+                Order invoice
+            </div>
+        </div>
+        <div class="invoice-meta">
+            <div><strong>Invoice #:</strong> {{ order.id }}</div>
+            <div><strong>Date:</strong> {{ order.created_at|date:"d M Y, H:i" }}</div>
+            <div>
+                <strong>Status:</strong>
+                <span class="status-pill status-{{ order.status }}">
+                    {{ order.get_status_display }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div style="display:flex; justify-content: space-between; gap: 40px;">
+        <div class="section" style="flex:1;">
+            <div class="section-title">Billed to</div>
+            <p>{{ user.get_full_name|default:user.username }}</p>
+            <p>{{ user.email }}</p>
+        </div>
+        <div class="section" style="flex:1; text-align:right;">
+            <div class="section-title">Order details</div>
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <p><strong>Placed at:</strong> {{ order.created_at|date:"d M Y, H:i" }}</p>
+        </div>
+    </div>
+
+    <table class="items-table">
+        <thead>
+        <tr>
+            <th style="width: 50%;">Product</th>
+            <th style="width: 15%;">Unit price (₹)</th>
+            <th style="width: 10%;">Qty</th>
+            <th style="width: 25%;">Line total (₹)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>
+                    {{ item.product.title }}
+                </td>
+                <td>
+                    {{ item.price }}
+                </td>
+                <td>
+                    {{ item.quantity }}
+                </td>
+                <td>
+                    {{ item.price|floatformat:2|add:"0"|floatformat:2|default_if_none:"0" }}
+                    <!-- fallback: if upar ka logic noisy lage, simply use item.price|mul:item.quantity type filter
+                         ya context me line_total pre‑calculate karo -->
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <table class="totals-table">
+            <tr>
+                <td>Subtotal</td>
+                <td>₹ {{ order.total_amount }}</td>
+            </tr>
+            <!-- Future me taxes / shipping add kar sakte ho -->
+            <tr>
+                <td>Total</td>
+                <td>₹ {{ order.total_amount }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="footer-note">
+        This is a system generated invoice for your order on Shopvely.
+    </div>
+</div>
+</body>
+</html>
