@@ -1,0 +1,85 @@
+/* backdrop */
+.sidemenu-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 110;
+}
+
+.sidemenu-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* drawer */
+.sidemenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  max-width: 80%;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.4);
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-out;
+  z-index: 120;
+  overflow-y: auto;
+}
+
+.sidemenu.open {
+  transform: translateX(0);
+}
+
+.sidemenu-header {
+  background-color: #232f3e;
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidemenu-close {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.sidemenu-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* sections */
+.sidemenu-section {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidemenu-section h4 {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #111;
+}
+
+.sidemenu-section a {
+  display: block;
+  font-size: 13px;
+  padding: 4px 0;
+  color: #111;
+  text-decoration: none;
+}
+
+.sidemenu-section a:hover {
+  color: #e47911;
+}
+
+/* small screens */
+@media (max-width: 480px) {
+  .sidemenu {
+    width: 240px;
+  }
+}

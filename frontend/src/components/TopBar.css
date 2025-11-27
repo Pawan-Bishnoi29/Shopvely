@@ -1,0 +1,77 @@
+.topbar {
+  background-color: #020617; /* almost black, different from Amazon */
+  color: #e5e7eb;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.topbar-inner::-webkit-scrollbar {
+  display: none;
+}
+
+/* All categories button */
+.topbar-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: #0f172a;
+  color: #e5e7eb;
+  border: 1px solid #1e293b;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.topbar-all span {
+  font-weight: 600;
+}
+
+.topbar-all:hover {
+  border-color: #38bdf8;
+}
+
+/* Links */
+.topbar-link {
+  white-space: nowrap;
+  font-size: 13px;
+  text-decoration: none;
+  color: #cbd5f5;
+  padding: 5px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.topbar-link:hover {
+  border-color: #38bdf8;
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .topbar-inner {
+    padding: 4px 8px;
+  }
+  .topbar-link {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+  .topbar-all {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}

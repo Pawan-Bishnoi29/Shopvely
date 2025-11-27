@@ -1,0 +1,101 @@
+.home {
+  padding: 0 24px 40px;
+  background: #f3f4f6;
+}
+
+/* Hero banner */
+.home-hero {
+  position: relative;
+  height: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  margin: 18px auto -60px;
+  max-width: 1180px;
+  background-image: url("https://images-na.ssl-images-amazon.com/images/G/01/AmazonMusic/2023/ACQ/GW/DARDXM-11488/08242023/US-EN_2X._CB602735861_.jpg");
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 0, rgba(255, 255, 255, 0.2), transparent),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.45), rgba(17, 24, 39, 0.9));
+}
+
+.home-hero-text {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  max-width: 360px;
+  color: #f9fafb;
+}
+
+.home-hero-text h2 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.home-hero-text p {
+  font-size: 15px;
+  color: #e5e7eb;
+}
+
+/* Search result message under hero */
+.home-search-info {
+  max-width: 1180px;
+  margin: 72px auto 8px;
+  padding: 6px 4px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.home-search-info strong {
+  color: #111827;
+}
+
+/* Product row */
+.home-row {
+  max-width: 1180px;
+  margin: 8px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: flex-start;
+}
+
+/* Empty state text */
+.home-empty-text {
+  padding: 16px 4px;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+  .home {
+    padding: 0 12px 28px;
+  }
+
+  .home-hero {
+    height: 220px;
+    margin: 12px auto -50px;
+    border-radius: 14px;
+  }
+
+  .home-hero-text {
+    left: 20px;
+    right: 20px;
+  }
+
+  .home-hero-text h2 {
+    font-size: 24px;
+  }
+
+  .home-row {
+    justify-content: center;
+  }
+}

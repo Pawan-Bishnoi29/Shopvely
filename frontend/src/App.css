@@ -1,0 +1,9 @@
+.app-root {
+  background-color: #eaeded; /* Amazon light grey background */
+  min-height: 100vh;
+}
+
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
